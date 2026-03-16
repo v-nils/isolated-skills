@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification
+description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees unless not already running on a worktree.
 ---
 
 # Using Git Worktrees
@@ -16,6 +16,10 @@ Git worktrees create isolated workspaces sharing the same repository, allowing w
 ## Directory Selection Process
 
 Follow this priority order:
+
+### Step 0: Check if already in a worktree
+  Run git worktree list and compare the current working directory path against the listed worktrees. If the current directory is already inside a non-main worktree,
+  announce "Already running in an isolated worktree — skipping worktree creation" and exit the skill immediately without creating anything.
 
 ### 1. Check Existing Directories
 
@@ -73,6 +77,7 @@ Per Jesse's rule "Fix broken things immediately":
 No .gitignore verification needed - outside project entirely.
 
 ## Creation Steps
+
 
 ### 1. Detect Project Name
 
